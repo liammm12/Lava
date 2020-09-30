@@ -5,7 +5,8 @@ module.exports = {
   name: "invite",
   description: "This command sends the link to invite me in your DMs",
   usage: "!invite",
-  execute(message,args){
+  execute(Discord, message, args){
+    const bot = new Discord.Client();
     if(cooldown.has(message.author.id)){
     return message.channel.send("Please slow down, you have used this command recently.")
   }
@@ -14,7 +15,11 @@ module.exports = {
   setTimeout(() => {
     cooldown.delete(message.author.id)
   }, cdtime * 1000)
-        message.author.send("https://discord.com/oauth2/authorize?client_id=747400285214998548&scope=bot&permissions=2146958847")
-    message.reply("I sent the link to invite me in your DMs!")
+        const embed = new Discord.MessageEmbed()
+        .setURL("https://discord.com/oauth2/authorize?client_id=747400285214998548&scope=bot&permissions=2146958847")
+        .setTitle('Invite me')
+        .setColor(0xff5349)
+        .setFooter(`Lava#9014`);
+        message.channel.send(embed)
   }
 }
