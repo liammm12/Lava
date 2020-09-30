@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const moment = require('moment')
+const fs = require('fs')
 
 const bot = new Discord.Client({
   disableMentions: ("everyone"),
@@ -12,7 +13,7 @@ const prefix = '!';
   const config = require('./config.json');
 bot.config = config;
 
-bot.login(config.token)
+bot.login('NzQ3NDAwMjg1MjE0OTk4NTQ4.X0OUwg.ksRXJdK01Rwzwv4T2ZDD0YbQiSU')
 
 const { GiveawaysManager } = require('discord-giveaways');
 
@@ -29,8 +30,6 @@ bot.giveawaysManager = new GiveawaysManager(bot, {
       
     }
 });
-
-const fs = require('fs');
   
 const db = require('quick.db');
 const { send } = require("process");
@@ -46,7 +45,7 @@ for(const file of commandFiles){
 
 bot.once('ready', () => {
     console.log('Successfully connected "Lava" to Discord!');
-    bot.user.setActivity('being a good boy :D')
+    bot.user.setActivity(`${bot.guilds.cache.size.toLocaleString()} servers`, {type: 'WATCHING'}).catch(console.error);
 });
 bot.snipe = new Map()
 
@@ -104,7 +103,7 @@ bot.on('message', message =>{
   } else if
     
     (command == 'invite' || command == 'inv'){
-      bot.commands.get('invite').execute(message, args);
+      bot.commands.get('invite').execute(Discord, message, args);
   } else if
       
     (command == 'kick'){
